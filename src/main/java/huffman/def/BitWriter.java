@@ -1,9 +1,15 @@
 package huffman.def;
 
+import java.io.OutputStream;
+
 public interface BitWriter
 {
-	public void open(String fname);
+	// establece el outputStream donde escribirá los bits
+	public void using(OutputStream os);
+	
+	// escribe un bit
 	public void writeBit(int bit);
+	
+	// completa el buffer con ceros y lo escribe
 	public void flush();
-	public void close();
 }

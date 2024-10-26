@@ -1,8 +1,15 @@
 package huffman.def;
 
+import java.io.InputStream;
+
 public interface BitReader
 {
-	public void open(String fname);
+	// establece el inputStream desde donde leerá los bits
+	public void using(InputStream is);
+
+	// retorna 1 o 0, o -1 si es EOF
 	public int readBit();
-	public void close();
+	
+	// vacia el buffer
+	public void flush();
 }

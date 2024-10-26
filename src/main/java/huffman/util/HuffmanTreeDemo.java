@@ -7,7 +7,7 @@ public class HuffmanTreeDemo
 	public static void main(String[] args)
 	{
 		// crea el árbol "COMO COME COCORITO..."
-		HuffmanInfo root = demo();
+		HuffmanInfo root = demoCocorito();
 		
 		// instancio 
 		HuffmanTree ht = new HuffmanTree(root);
@@ -23,7 +23,7 @@ public class HuffmanTreeDemo
 		}
 	}
 	
-	public static HuffmanInfo demo()
+	public static HuffmanInfo demoCocorito()
 	{
 		// nivel 5 (ultimo nivel)
 		HuffmanInfo nS=node('S',1,null,null);
@@ -61,6 +61,24 @@ public class HuffmanTreeDemo
 		HuffmanInfo a11=node(256+11,39,a10,a9);
 
 		return a11;
+	}
+	
+	public static HuffmanInfo demoBeeGees()
+	{
+		// nivel 3
+		HuffmanInfo nC=node('C',2,null,null);
+		HuffmanInfo nD=node('D',1,null,null);
+		HuffmanInfo a1=node(256,3,nC,nD);
+
+		// nivel 2
+		HuffmanInfo nB=node('B',3,null,null);
+		HuffmanInfo a2=node(257,6,a1,nB);
+		
+		// nivel 1
+		HuffmanInfo nA=node('A',4,null,null);
+		HuffmanInfo a3=node(258,10,a2,nA);
+		
+		return a3;
 	}
 
 	private static HuffmanInfo node(int c, int n, HuffmanInfo izq, HuffmanInfo der)

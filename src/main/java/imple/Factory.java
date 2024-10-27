@@ -4,6 +4,8 @@ import huffman.def.BitReader;
 import huffman.def.BitWriter;
 import huffman.def.Compresor;
 import huffman.def.Descompresor;
+import huffman.def.HuffmanInfo;
+import huffman.def.HuffmanTable;
 
 public class Factory
 {
@@ -16,14 +18,20 @@ public class Factory
 	{
 		return new BitReaderImple();
 	}
+	public static HuffmanTable getHuffmanTable()
+	{
+		return new HuffmanTable();
+	}
 
 	public static Compresor getCompresor()
 	{
-		return null;
+		return new CompresorImple();
 	}
 	
 	public static Descompresor getDescompresor()
 	{
-		return null;
+		return new DescompresorImple();
 	}
+
+
 }

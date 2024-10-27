@@ -47,11 +47,16 @@ public class BitReaderTest
 		assertEquals(0,br.readBit());
 		assertEquals(1,br.readBit());
 		
-		// B
-		int c = fis.read();
-		assertEquals('B',c);
+		assertEquals(0, br.readBit()); 
+        assertEquals(1, br.readBit()); 
+        assertEquals(0, br.readBit()); 
+        assertEquals(0, br.readBit()); 
+        assertEquals(0, br.readBit()); 
+		assertEquals(0 ,br.readBit());
+		assertEquals(1, br.readBit()); 
+		assertEquals(0, br.readBit()); 
 		
-		// C
+		
 		assertEquals(0,br.readBit());
 		assertEquals(1,br.readBit());
 		assertEquals(0,br.readBit());

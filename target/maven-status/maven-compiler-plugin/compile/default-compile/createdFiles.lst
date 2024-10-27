@@ -1,0 +1,13 @@
+huffman\def\BitWriter.class
+huffman\def\Compresor.class
+huffman\util\HuffmanTree.class
+huffman\def\BitReader.class
+huffman\def\HuffmanInfo.class
+huffman\def\HuffmanTable.class
+imple\BitReaderImple.class
+imple\BitWriterImple.class
+imple\Factory.class
+huffman\util\HuffmanTreeDemo.class
+imple\DescompresorImple.class
+imple\CompresorImple.class
+huffman\def\Descompresor.class

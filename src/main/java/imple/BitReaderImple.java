@@ -6,8 +6,9 @@ import huffman.def.BitReader;
 
 public class BitReaderImple implements BitReader {
     private InputStream is;
-    private int currentByte = 0; 
-    private int bitCount = 0; 
+    private int currentByte; 
+    private int bitCount; 
+
     @Override
     public void using(InputStream is) {
         this.is = is;
@@ -16,26 +17,30 @@ public class BitReaderImple implements BitReader {
     }
 
     @Override
-    public int readBit() throws IOException {
-       
-        if (bitCount == 0) {
-            flush();
-            if (currentByte == -1) {
-                return -1;
-            }
+public int readBit() throws IOException {
+    if (bitCount == 0) {
+        flush(); 
+        if (currentByte == -1) { 
+            return -1; 
         }
-
-        
-        int bit = (currentByte & 1); 
-        currentByte >>= 1; 
-        bitCount--;
-
-        return bit; 
     }
+
+   
+    int bit = (currentByte >> (bitCount - 1)) & 1; 
+    bitCount--; 
+
+ 
+    if (bitCount == 0) {
+        currentByte = is.read(); 
+        bitCount = (currentByte == -1) ? 0 : 8; 
+    }
+
+    return bit; 
+}
 
     @Override
     public void flush() throws IOException {
-        currentByte = is.read(); // retorna el proximo byte o -1 si no hay mas
-        bitCount = 8; 
+        currentByte = is.read(); 
+        bitCount = (currentByte == -1) ? 0 : 8; 
     }
 }

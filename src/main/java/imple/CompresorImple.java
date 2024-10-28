@@ -42,16 +42,47 @@ public HuffmanTable[] contarOcurrencias(String filename) {
 	// Retorna una lista ordenada donde cada nodo representa a cada byte del archivo
 	public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]){
         List<HuffmanInfo> lst= new ArrayList<HuffmanInfo>();
+        for(int i=0;i<arr.length;i++){
+            HuffmanInfo hI=new HuffmanInfo(i,arr[i].getN());
+            lst.add(hI);
+        }
+        lst.sort((h1, h2) -> {
+            int compareN = Integer.compare(h1.getN(), h2.getN());
+            if (compareN != 0) {
+                return compareN; 
+            }
+            return Integer.compare(h1.getC(), h2.getC());
+        });
         return lst;
-
-
     };
 	
 	// Convierte la lista en el árbol Huffman
-	public HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista){
-        HuffmanInfo hF=new HuffmanInfo();
-        return hF;
-    };
+    public HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista) {
+        int count = 0;
+        while (lista.size() > 1) {
+            HuffmanInfo hIAux = new HuffmanInfo();
+            hIAux.setC(255 + count);
+    
+            HuffmanInfo hID = lista.removeFirst(); 
+            HuffmanInfo hII = lista.removeFirst(); 
+            
+           
+            hIAux.setRight(hID);
+            hIAux.setLeft(hII);
+            hIAux.setN(hID.getN() + hII.getN());
+            lista.add(hIAux);
+            lista.sort((h1, h2) -> {
+                int compareN = Integer.compare(h1.getN(), h2.getN());
+                if (compareN != 0) {
+                    return compareN; 
+                }
+                return Integer.compare(h1.getC(), h2.getC());
+            });
+            
+            count++;
+        }
+        return lista.getFirst();
+    }
 	
 	// Recorre el árbol Huffman y completa los códigos en el array
 	public void generarCodigosHuffman(HuffmanInfo root,HuffmanTable arr[]){

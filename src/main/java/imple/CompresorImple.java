@@ -63,8 +63,8 @@ public HuffmanTable[] contarOcurrencias(String filename) {
             HuffmanInfo hIAux = new HuffmanInfo();
             hIAux.setC(255 + count);
     
-            HuffmanInfo hID = lista.removeFirst(); 
-            HuffmanInfo hII = lista.removeFirst(); 
+            HuffmanInfo hID = lista.remove(0); 
+            HuffmanInfo hII = lista.remove(0); 
             
            
             hIAux.setRight(hID);
@@ -81,7 +81,7 @@ public HuffmanTable[] contarOcurrencias(String filename) {
             
             count++;
         }
-        return lista.getFirst();
+        return lista.get(0);
     }
 	
 	// Recorre el árbol Huffman y completa los códigos en el array

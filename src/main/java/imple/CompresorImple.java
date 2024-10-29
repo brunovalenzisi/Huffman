@@ -9,6 +9,7 @@ import java.io.IOException;
 import huffman.def.Compresor;
 import huffman.def.HuffmanInfo;
 import huffman.def.HuffmanTable;
+import huffman.util.HuffmanTree;
 
 public class CompresorImple implements Compresor {
     
@@ -86,7 +87,14 @@ public HuffmanTable[] contarOcurrencias(String filename) {
 	
 	// Recorre el árbol Huffman y completa los códigos en el array
 	public void generarCodigosHuffman(HuffmanInfo root,HuffmanTable arr[]){
-
+        HuffmanTree hF= new HuffmanTree(root);
+        StringBuffer sB=new StringBuffer();
+        HuffmanInfo hoja= hF.next(sB);
+        while(hoja!=null){
+            int c=hoja.getC();
+            arr[c].setCod(sB.toString());
+            hoja=hF.next(sB);
+        }
     };
 	
 	// Escribe el encabezado en el archivo filename+".huf", y retorna cuántos bytes ocupa el encabezado

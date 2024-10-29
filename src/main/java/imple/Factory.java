@@ -4,7 +4,6 @@ import huffman.def.BitReader;
 import huffman.def.BitWriter;
 import huffman.def.Compresor;
 import huffman.def.Descompresor;
-import huffman.def.HuffmanInfo;
 import huffman.def.HuffmanTable;
 
 public class Factory

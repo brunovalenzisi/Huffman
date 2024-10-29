@@ -120,14 +120,28 @@ public HuffmanTable[] contarOcurrencias(String filename) {
         }
         
         return f.length();
-
+        
     };
-
+    
 	// Recorre el archivo filename por cada byte escribe su código en filename+".huf"
 	public void escribirContenido(String filename,HuffmanTable arr[],BitWriterImple bitW){
+        File f =new File(filename);
+        try{
+            FileInputStream fIS = new FileInputStream(f);
+            FileOutputStream fOS= new FileOutputStream(filename+".huf",true);
+            int oldCode=fIS.read();
+            while(oldCode!=-1){
+                
 
 
-        
+            }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     };	
 
 

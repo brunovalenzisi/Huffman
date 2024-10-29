@@ -2,6 +2,8 @@ package huffman.def;
 
 import java.util.List;
 
+import imple.BitWriterImple;
+
 public interface Compresor
 {
 	// ** en todos los casos filename es el nombre del archivo original **
@@ -19,8 +21,8 @@ public interface Compresor
 	public void generarCodigosHuffman(HuffmanInfo root,HuffmanTable arr[]);
 	
 	// Escribe el encabezado en el archivo filename+".huf", y retorna cuántos bytes ocupa el encabezado
-	public long escribirEncabezado(String filename,HuffmanTable arr[]);
+	public long escribirEncabezado(String filename,HuffmanTable arr[],BitWriterImple bitW);
 
 	// Recorre el archivo filename por cada byte escribe su código en filename+".huf"
-	public void escribirContenido(String filename,HuffmanTable arr[]);	
+	public void escribirContenido(String filename,HuffmanTable arr[],BitWriterImple bitW);	
 }

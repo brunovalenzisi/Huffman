@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import huffman.def.Compresor;
@@ -98,14 +99,32 @@ public HuffmanTable[] contarOcurrencias(String filename) {
     };
 	
 	// Escribe el encabezado en el archivo filename+".huf", y retorna cuántos bytes ocupa el encabezado
-	public long escribirEncabezado(String filename,HuffmanTable arr[]){
-        long l=0;
-        return l;
+	public long escribirEncabezado(String filename,HuffmanTable arr[],BitWriterImple bitW){
+        File f = new File(filename+".huf");
+        try (FileOutputStream fOS=new FileOutputStream(f)) {
+             bitW.using(fOS);
+             fOS.write(arr.length);
+             for(int i=0;i<arr.length;i++){
+                int longC=arr[i].getCod().length();
+                fOS.write(i);
+                fOS.write(longC);
+                for(int j=0;j<longC;j++){
+                 bitW.writeBit(arr[i].getCod().charAt(j)=='0'?0:1);   
+                }
+                bitW.flush();                
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return f.length();
 
     };
 
 	// Recorre el archivo filename por cada byte escribe su código en filename+".huf"
-	public void escribirContenido(String filename,HuffmanTable arr[]){
+	public void escribirContenido(String filename,HuffmanTable arr[],BitWriterImple bitW){
 
 
         

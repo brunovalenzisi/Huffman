@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import imple.Factory;
@@ -47,16 +46,11 @@ public class BitReaderTest
 		assertEquals(0,br.readBit());
 		assertEquals(1,br.readBit());
 		
-		assertEquals(0, br.readBit()); 
-        assertEquals(1, br.readBit()); 
-        assertEquals(0, br.readBit()); 
-        assertEquals(0, br.readBit()); 
-        assertEquals(0, br.readBit()); 
-		assertEquals(0 ,br.readBit());
-		assertEquals(1, br.readBit()); 
-		assertEquals(0, br.readBit()); 
+		// B
+		int c = fis.read();
+		assertEquals('B',c);
 		
-		
+		// C
 		assertEquals(0,br.readBit());
 		assertEquals(1,br.readBit());
 		assertEquals(0,br.readBit());
@@ -115,3 +109,4 @@ public class BitReaderTest
 	}
 
 }
+

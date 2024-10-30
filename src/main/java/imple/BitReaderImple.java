@@ -23,16 +23,13 @@ public int readBit() throws IOException {
         if (currentByte == -1) { 
             return -1; 
         }
+        bitCount = 8; 
     }
-
    
     int bit = (currentByte >> (bitCount - 1)) & 1; 
     bitCount--; 
-
  
     if (bitCount == 0) {
-        currentByte = is.read(); 
-        bitCount = (currentByte == -1) ? 0 : 8; 
     }
 
     return bit; 

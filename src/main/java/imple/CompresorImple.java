@@ -7,9 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import huffman.def.Compresor;
-import huffman.def.HuffmanInfo;
-import huffman.def.HuffmanTable;
+import huffman.def.*;
 import huffman.util.HuffmanTree;
 
 public class CompresorImple implements Compresor {
@@ -99,22 +97,26 @@ public HuffmanTable[] contarOcurrencias(String filename) {
     };
 	
 	// Escribe el encabezado en el archivo filename+".huf", y retorna cuántos bytes ocupa el encabezado
-	public long escribirEncabezado(String filename,HuffmanTable arr[],BitWriterImple bitW){
+	public long escribirEncabezado(String filename,HuffmanTable arr[]){
         File f = new File(filename+".huf");
-        try (FileOutputStream fOS=new FileOutputStream(f)) {
-             bitW.using(fOS);
+        
+        try  {
+            FileOutputStream fOS=new FileOutputStream(f);
+            BitWriter ppbWriter = Factory.getBitWriter();
+            ppbWriter.using(fOS);
+             ppbWriter.using(fOS);
              fOS.write(arr.length);
              for(int i=0;i<arr.length;i++){
                 int longC=arr[i].getCod().length();
                 fOS.write(i);
                 fOS.write(longC);
                 for(int j=0;j<longC;j++){
-                 bitW.writeBit(arr[i].getCod().charAt(j)=='0'?0:1);   
+                 ppbWriter.writeBit(arr[i].getCod().charAt(j)=='0'?0:1);   
                 }
-                bitW.flush();                
+                ppbWriter.flush();                
             }
             
-            
+            fOS.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,24 +126,32 @@ public HuffmanTable[] contarOcurrencias(String filename) {
     };
     
 	// Recorre el archivo filename por cada byte escribe su código en filename+".huf"
-	public void escribirContenido(String filename, HuffmanTable[] arr, BitWriterImple bitW) {
-        File f = new File(filename);
-        try (FileInputStream fIS = new FileInputStream(f)) {
-            int newByte;
-            while ((newByte = fIS.read()) != -1) {
+    @Override
+	public void escribirContenido(String filename,HuffmanTable arr[]){
+        File f =new File(filename);
+        try{
+            FileInputStream fIS = new FileInputStream(f);
+            FileOutputStream fOS= new FileOutputStream(filename+".huf",true);
+            BitWriter ppbWriter = Factory.getBitWriter();
+            ppbWriter.using(fOS);
+            int newByte=fIS.read();
+            while(newByte!=-1){
                 HuffmanTable hT = arr[newByte];
-                if (hT != null) { 
                     String newCode = hT.getCod();
                     for (int i = 0; i < newCode.length(); i++) {
                         int bit = newCode.charAt(i) == '0' ? 0 : 1;
-                        bitW.writeBit(bit);
+                        ppbWriter.writeBit(bit);
                     }
-                }
-            }
-            bitW.flush(); 
+        }
+            ppbWriter.flush();
+            fIS.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
+    };	
+
+
     
 }

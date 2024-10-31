@@ -109,13 +109,15 @@ public HuffmanTable[] contarOcurrencias(String filename) {
              ppbWriter.using(fOS);
              fOS.write(arr.length);
              for(int i=0;i<arr.length;i++){
-                int longC=arr[i].getCod().length();
-                fOS.write(i);
-                fOS.write(longC);
-                for(int j=0;j<longC;j++){
-                 ppbWriter.writeBit(arr[i].getCod().charAt(j)=='0'?0:1);   
+                if(arr[i]!=null){
+                    int longC=arr[i].getCod().length();
+                    fOS.write(i);
+                    fOS.write(longC);
+                    for(int j=0;j<longC;j++){
+                     ppbWriter.writeBit(arr[i].getCod().charAt(j)=='0'?0:1);   
+                    }
+                    ppbWriter.flush();                
                 }
-                ppbWriter.flush();                
             }
             
             fOS.close();

@@ -2,6 +2,7 @@ package imple;
 
 import huffman.def.Descompresor;
 import huffman.def.HuffmanInfo;
+import huffman.def.HuffmanTable;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class DescompresorImple implements Descompresor {
 
         HuffmanInfo p=new HuffmanInfo(); // acepto que es el primer puntero al arbol
 
-        try (FileInputStream fis = new FileInputStream(filename)) {
+        try (FileInputStream fis = new FileInputStream(filename+".huf")) {
             int data;
             while ((data = fis.read()) != -1) {
 
@@ -28,7 +29,7 @@ public class DescompresorImple implements Descompresor {
 
 
 
-        return info;
+        return p;
     };
 	
 	public void descomprimirArchivo(HuffmanInfo root,String filename){

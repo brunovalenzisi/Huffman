@@ -43,8 +43,10 @@ public HuffmanTable[] contarOcurrencias(String filename) {
 	public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]){
         List<HuffmanInfo> lst= new ArrayList<HuffmanInfo>();
         for(int i=0;i<arr.length;i++){
-            HuffmanInfo hI=new HuffmanInfo(i,arr[i].getN());
-            lst.add(hI);
+            if(arr[i]!=null){
+                HuffmanInfo hI=new HuffmanInfo(i,arr[i].getN());
+                lst.add(hI);
+            }
         }
         lst.sort((h1, h2) -> {
             int compareN = Integer.compare(h1.getN(), h2.getN());

@@ -2,9 +2,12 @@ package imple;
 
 import huffman.def.*;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.File;
 
 public class DescompresorImple implements Descompresor {
+    FileInputStream fIS;
     
 
 
@@ -15,13 +18,14 @@ public class DescompresorImple implements Descompresor {
         
         HuffmanInfo root=new HuffmanInfo(); // acepto que es el primer puntero al arbol
 
-        try (FileInputStream fis = new FileInputStream(filename+".huf")) {
-            bitR.using(fis);
-            int cantHojas=fis.read();
+        try  {
+            fIS = new FileInputStream(filename+".huf");
+            bitR.using(fIS);
+            int cantHojas=fIS.read();
 
             for (int i=0;i<cantHojas;i++) {
-                int code=fis.read();
-                int longCod=fis.read();
+                int code=fIS.read();
+                int longCod=fIS.read();
                 bitR.flush();
                 HuffmanInfo current=root;
                 for(int bitPos=0;bitPos<longCod;bitPos++){
@@ -54,7 +58,33 @@ public class DescompresorImple implements Descompresor {
     };
 	
 	public void descomprimirArchivo(HuffmanInfo root,String filename){
-
+        File fOut=new File(filename);
+        try {
+            HuffmanInfo current=root;
+            FileOutputStream fOS=new FileOutputStream(fOut);
+            BitReader bitR=Factory.getBitReader();
+            bitR.using(fIS);
+            int currentBit=bitR.readBit();
+            while(currentBit!=-1){
+                if(currentBit==0){
+                    current=current.getLeft();
+                }else{
+                    current=current.getRight();                    
+                }
+                if(current.getLeft()==null&&current.getRight()==null){
+                    fOS.write(current.getC());
+                    current=root;
+                }
+                currentBit=bitR.readBit();
+                
+            }
+            fOS.close();
+            fIS.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+        
 
 
     };

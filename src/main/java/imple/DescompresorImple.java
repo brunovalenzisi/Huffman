@@ -10,7 +10,7 @@ public class DescompresorImple implements Descompresor {
     FileInputStream fIS;
     
 
-
+    @Override
 	public HuffmanInfo recomponerArbol(String filename){
        // HuffmanTable arrAux []; /*Esto debe ser de otro tipo de dato, al no poder agregarse elementos como tal a un array*/
 
@@ -56,7 +56,7 @@ public class DescompresorImple implements Descompresor {
         }
         return root;
     };
-	
+	@Override
 	public void descomprimirArchivo(HuffmanInfo root,String filename){
         File fOut=new File(filename);
         try {

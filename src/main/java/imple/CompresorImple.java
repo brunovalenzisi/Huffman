@@ -11,7 +11,7 @@ import huffman.def.*;
 import huffman.util.HuffmanTree;
 
 public class CompresorImple implements Compresor {
-    
+    @Override   
 public HuffmanTable[] contarOcurrencias(String filename) {
     HuffmanTable[] arr = new HuffmanTable[256];
     File file = new File(filename);
@@ -39,7 +39,9 @@ public HuffmanTable[] contarOcurrencias(String filename) {
 
     return arr;
 }
-	// Retorna una lista ordenada donde cada nodo representa a cada byte del archivo
+
+// Retorna una lista ordenada donde cada nodo representa a cada byte del archivo
+    @Override
 	public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]){
         List<HuffmanInfo> lst= new ArrayList<HuffmanInfo>();
         for(int i=0;i<arr.length;i++){
@@ -58,7 +60,9 @@ public HuffmanTable[] contarOcurrencias(String filename) {
         return lst;
     };
 	
-	// Convierte la lista en el árbol Huffman
+	
+    // Convierte la lista en el árbol Huffman
+    @Override
     public HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista) {
         int count = 0;
         while (lista.size() > 1) {
@@ -87,6 +91,7 @@ public HuffmanTable[] contarOcurrencias(String filename) {
     }
 	
 	// Recorre el árbol Huffman y completa los códigos en el array
+    @Override
 	public void generarCodigosHuffman(HuffmanInfo root,HuffmanTable arr[]){
         HuffmanTree hF= new HuffmanTree(root);
         StringBuffer sB=new StringBuffer();
@@ -99,6 +104,7 @@ public HuffmanTable[] contarOcurrencias(String filename) {
     };
 	
 	// Escribe el encabezado en el archivo filename+".huf", y retorna cuántos bytes ocupa el encabezado
+    @Override
 	public long escribirEncabezado(String filename,HuffmanTable arr[]){
         File f = new File(filename+".huf");
         

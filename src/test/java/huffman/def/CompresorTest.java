@@ -3,6 +3,7 @@ package huffman.def;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -79,6 +80,165 @@ public class CompresorTest {
 		assertEquals(65,lst.get(4).getC());//codigo de A
 		assertEquals(4,lst.get(4).getN());//ocurrencias de A
 
+	}
+
+
+	@Test
+	public void convertirListaEnArbolTest() throws Exception
+	{
+		FileOutputStream fos = new FileOutputStream(FILENAME);
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('B');
+		fos.write('B');
+		fos.write('B');
+		fos.write('C');
+		fos.write('C');
+		fos.write('D');
+		fos.write('E');
+
+		fos.close();
+		
+		Compresor comp = Factory.getCompresor();
+        HuffmanTable[] hT=comp.contarOcurrencias(FILENAME);
+		
+		List<HuffmanInfo> lst= comp.crearListaEnlazada(hT);
+		HuffmanInfo root=comp.convertirListaEnArbol(lst);
+
+		HuffmanInfo current=root;
+		assertEquals(11,current.getN());//cantidad de hojas
+		assertEquals(255+4,current.getC()); //code
+		
+		current=current.getLeft();
+		assertEquals(7,current.getN());//cantidad de hojas
+		assertEquals(255+3,current.getC());//code
+		
+		current=current.getLeft();
+		assertEquals(4,current.getN());//cantidad de hojas
+		assertEquals(65,current.getC());//code
+
+		assertEquals(null,current.getLeft());//Null(hoja)
+		assertEquals(null,current.getRight());//Null(hoja)
+		
+		current=root.getLeft();
+		current=current.getRight();
+		assertEquals(3,current.getN());//cantidad de hojas
+		assertEquals(66,current.getC());//code
+
+		assertEquals(null,current.getLeft());//Null(hoja)
+		assertEquals(null,current.getRight());//Null(hoja)
+		
+		
+		current=root.getRight();
+		assertEquals(4,current.getN());//cantidad de hojas
+		assertEquals(255+2,current.getC());//code
+		
+		current=current.getLeft();
+		assertEquals(2,current.getN());//cantidad de hojas
+		assertEquals(255+1,current.getC());//code
+		
+		current=current.getLeft();
+		assertEquals(1,current.getN());//cantidad de hojas
+		assertEquals(69,current.getC());//code
+
+		assertEquals(null,current.getLeft());//Null(hoja)
+		assertEquals(null,current.getRight());//Null(hoja)
+
+		current=root.getRight();
+		current=current.getLeft();
+		current=current.getRight();
+		assertEquals(1,current.getN());//cantidad de hojas
+		assertEquals(68,current.getC());//code
+		
+		assertEquals(null,current.getLeft());//Null(hoja)
+		assertEquals(null,current.getRight());//Null(hoja)
+		
+		current=root.getRight();
+		current=current.getRight();
+		assertEquals(2,current.getN());//cantidad de hojas
+		assertEquals(67,current.getC());//code
+		
+		assertEquals(null,current.getLeft());//Null(hoja)
+		assertEquals(null,current.getRight());//Null(hoja)
+
+	}
+
+
+	@Test
+	public void generarCodigosHuffmanTest() throws Exception
+	{
+		FileOutputStream fos = new FileOutputStream(FILENAME);
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('B');
+		fos.write('B');
+		fos.write('B');
+		fos.write('C');
+		fos.write('C');
+		fos.write('D');
+		fos.write('E');
+
+		fos.close();
+		
+		Compresor comp = Factory.getCompresor();
+        HuffmanTable[] hT=comp.contarOcurrencias(FILENAME);
+		
+		List<HuffmanInfo> lst= comp.crearListaEnlazada(hT);
+		HuffmanInfo root=comp.convertirListaEnArbol(lst);
+		
+		comp.generarCodigosHuffman(root, hT);
+
+		assertEquals("00",hT[65].getCod());//A
+		assertEquals("01",hT[66].getCod());//B
+		assertEquals("11",hT[67].getCod());//C
+		assertEquals("101",hT[68].getCod());//D
+		assertEquals("100",hT[69].getCod());//E
+		
+	}
+	
+	@Test
+	public void escribirEncabezadoTest() throws Exception
+	{	
+		FileOutputStream fos = new FileOutputStream(FILENAME);
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('B');
+		fos.write('B');
+		fos.write('B');
+		fos.write('C');
+		fos.write('C');
+		fos.write('D');
+		fos.write('E');
+		
+		fos.close();
+		
+		Compresor comp = Factory.getCompresor();
+        HuffmanTable[] hT=comp.contarOcurrencias(FILENAME);
+		
+		List<HuffmanInfo> lst= comp.crearListaEnlazada(hT);
+		HuffmanInfo root=comp.convertirListaEnArbol(lst);
+		
+		comp.generarCodigosHuffman(root, hT);
+		comp.escribirEncabezado("./test", hT);
+
+		FileInputStream fis=new FileInputStream("./test.huf");
+		assertEquals(5, fis.read());
+		assertEquals(65, fis.read());
+		assertEquals(2, fis.read());
+		assertEquals(0, fis.read());
+
+
+		fis.close();
+
+		
+
+		
 	}
 
 

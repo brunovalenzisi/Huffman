@@ -24,9 +24,7 @@ public HuffmanTable[] contarOcurrencias(String filename) {
                 if (arr[newByte] != null) {
                     arr[newByte].increment();
                 } else {
-                    String binaryString = String.format("%8s", Integer.toBinaryString(newByte)).replace(' ', '0');
                     HuffmanTable hT = new HuffmanTable();
-                    hT.setCod(binaryString); 
                     hT.setN(1); 
                     arr[newByte] = hT;
                 }
@@ -64,7 +62,7 @@ public HuffmanTable[] contarOcurrencias(String filename) {
     // Convierte la lista en el árbol Huffman
     @Override
     public HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista) {
-        int count = 0;
+        int count = 1;
         while (lista.size() > 1) {
             HuffmanInfo hIAux = new HuffmanInfo();
             hIAux.setC(255 + count);
@@ -93,13 +91,13 @@ public HuffmanTable[] contarOcurrencias(String filename) {
 	// Recorre el árbol Huffman y completa los códigos en el array
     @Override
 	public void generarCodigosHuffman(HuffmanInfo root,HuffmanTable arr[]){
-        HuffmanTree hF= new HuffmanTree(root);
+        HuffmanTree hT= new HuffmanTree(root);
         StringBuffer sB=new StringBuffer();
-        HuffmanInfo hoja= hF.next(sB);
+        HuffmanInfo hoja= hT.next(sB);
         while(hoja!=null){
             int c=hoja.getC();
             arr[c].setCod(sB.toString());
-            hoja=hF.next(sB);
+            hoja=hT.next(sB);
         }
     };
 	
@@ -109,11 +107,14 @@ public HuffmanTable[] contarOcurrencias(String filename) {
         File f = new File(filename+".huf");
         
         try  {
+            
+            int arrLength = 0;
+            for(int i=0;i<arr.length;i++){if(arr[i]!=null){
+                arrLength++;}}
             FileOutputStream fOS=new FileOutputStream(f);
             BitWriter ppbWriter = Factory.getBitWriter();
             ppbWriter.using(fOS);
-             ppbWriter.using(fOS);
-             fOS.write(arr.length);
+             fOS.write(arrLength);
              for(int i=0;i<arr.length;i++){
                 if(arr[i]!=null){
                     int longC=arr[i].getCod().length();
@@ -125,7 +126,6 @@ public HuffmanTable[] contarOcurrencias(String filename) {
                     ppbWriter.flush();                
                 }
             }
-            
             fOS.close();
         } catch (Exception e) {
             e.printStackTrace();

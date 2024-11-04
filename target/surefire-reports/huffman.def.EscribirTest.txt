@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: huffman.def.CompresorTest
+Test set: huffman.def.EscribirTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.060 s -- in huffman.def.CompresorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s -- in huffman.def.EscribirTest

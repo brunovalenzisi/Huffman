@@ -18,6 +18,9 @@ public class CompresorTest {
 	{
 		File f = new File(FILENAME);
 		f.delete();
+		File fhuf = new File(FILENAME+".huf");
+		fhuf.delete();
+
 	}
 
     @Test
@@ -228,20 +231,130 @@ public class CompresorTest {
 		comp.escribirEncabezado("./test", hT);
 
 		FileInputStream fis=new FileInputStream("./test.huf");
+		BitReader bitR = Factory.getBitReader();
+		bitR.using(fis);
+		
 		assertEquals(5, fis.read());
+		
 		assertEquals(65, fis.read());
 		assertEquals(2, fis.read());
-		assertEquals(0, fis.read());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+	   
+		assertEquals(66, fis.read());
+		assertEquals(2, fis.read());
+		assertEquals(0, bitR.readBit());
+		assertEquals(1, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
 
+		assertEquals(67, fis.read());
+		assertEquals(2, fis.read());
+		assertEquals(1, bitR.readBit());
+		assertEquals(1, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
 
-		fis.close();
+		assertEquals(68, fis.read());
+		assertEquals(3, fis.read());
+		assertEquals(1, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(1, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+
+		assertEquals(69, fis.read());
+		assertEquals(3, fis.read());
+		assertEquals(1, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
+		assertEquals(0, bitR.readBit());
 
 		
-
+		
+		fis.close();
+		
+		
+		
 		
 	}
-
-
 	
-    
+	@Test
+	public void escribirContenidoTest() throws Exception
+	{	
+		FileOutputStream fos = new FileOutputStream(FILENAME);
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('A');
+		fos.write('B');
+		fos.write('B');
+		fos.write('B');
+		fos.write('C');
+		fos.write('C');
+		fos.write('D');
+		fos.write('E');
+		fos.close();
+		
+		Compresor comp = Factory.getCompresor();
+        HuffmanTable[] hT=comp.contarOcurrencias(FILENAME);
+		
+		List<HuffmanInfo> lst= comp.crearListaEnlazada(hT);
+		HuffmanInfo root=comp.convertirListaEnArbol(lst);
+		
+		comp.generarCodigosHuffman(root, hT);
+		comp.escribirContenido(FILENAME, hT);
+		
+        FileInputStream fis = new FileInputStream(FILENAME+".huf");
+		BitReader bitR= Factory.getBitReader();
+		bitR.using(fis);
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(1,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(0,bitR.readBit());
+		assertEquals(-1,bitR.readBit());
+
+	}
+
 }

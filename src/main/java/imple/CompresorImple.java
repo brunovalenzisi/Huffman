@@ -120,15 +120,12 @@ public HuffmanTable[] contarOcurrencias(String filename) {
              for(int i=0;i<arr.length;i++){
                 if(arr[i]!=null){
                     int longC=arr[i].getCod().length();
-                    System.out.println("escrito: " + i);
                     fOS.write(i);
                     fOS.write(longC);
-                    System.out.println("escrito: " + longC);
                     
                     for(int j=0;j<longC;j++){
                         int newBit=arr[i].getCod().charAt(j)=='0'?0:1;
                         ppbWriter.writeBit(newBit);   
-                        System.out.println("escrito: " + newBit);
                     }
                     ppbWriter.flush();                
                 }
@@ -165,7 +162,6 @@ public HuffmanTable[] contarOcurrencias(String filename) {
             ppbWriter.flush();
             fIS.close();
             fOS.close();
-            System.out.println("escrito con exito");
             
         } catch (Exception e) {
             e.printStackTrace();

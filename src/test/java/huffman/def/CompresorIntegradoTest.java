@@ -10,13 +10,11 @@ import java.util.List;
 import imple.Factory;
 
 public class CompresorIntegradoTest {
-    private static final String FILENAME = "testfile.txt";
-    private static final String COMPRESSED_FILENAME = "testfile.txt.huf";
+    private static final String FILENAME = "test";
+    private static final String COMPRESSED_FILENAME = "test.huf";
 
     @AfterEach
     public void cleanup() {
-        new File(FILENAME).delete();
-        new File(COMPRESSED_FILENAME).delete();
     }
 
     @Test
@@ -48,7 +46,7 @@ public class CompresorIntegradoTest {
 
         // 5. Generar códigos de Huffman en la tabla
         comp.generarCodigosHuffman(root, hT);
-        assertEquals("00",hT[65].getCod());//A
+       assertEquals("00",hT[65].getCod());//A
 		assertEquals("01",hT[66].getCod());//B
 		assertEquals("11",hT[67].getCod());//C
 		assertEquals("101",hT[68].getCod());//D
@@ -65,7 +63,7 @@ public class CompresorIntegradoTest {
             BitReader bitR = Factory.getBitReader();
             bitR.using(fis);
             //encabezado
-            assertEquals(5, fis.read());
+             assertEquals(5, fis.read());
 
             assertEquals(65, fis.read());
             assertEquals(2, fis.read());

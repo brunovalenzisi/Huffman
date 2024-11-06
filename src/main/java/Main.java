@@ -18,22 +18,22 @@ public class Main {
         try {
             // Crear instancia de DescompresorImple si el archivo tiene extensión .huf
             if (filename.endsWith(".huf")) {
+                System.out.println("Descomprimiendo");
                 String baseName = filename.substring(0, filename.length() - 4);
                 Descompresor descompresor = Factory.getDescompresor();
                 HuffmanInfo root = descompresor.recomponerArbol(baseName);
                 descompresor.descomprimirArchivo(root, baseName);
                 System.out.println("Archivo descomprimido exitosamente como " + baseName);
             } else {
+
                 // Compresión si el archivo no tiene la extensión .huf
+                System.out.println("Comprimiendo");
                 Compresor compresor = Factory.getCompresor();
                 HuffmanTable[] hT = compresor.contarOcurrencias(filename);
                 List<HuffmanInfo> lst = compresor.crearListaEnlazada(hT);
                 HuffmanInfo hI = compresor.convertirListaEnArbol(lst);
-
                 compresor.generarCodigosHuffman(hI, hT);
-                
                 compresor.escribirEncabezado(filename, hT);
-                System.out.println("encabezado");
                 compresor.escribirContenido(filename, hT);
                 System.out.println("Archivo comprimido exitosamente como " + filename + ".huf");
             }

@@ -8,11 +8,21 @@ import java.io.File;
 
 public class DescompresorImple implements Descompresor {
     FileInputStream fIS;
-    
 
     @Override
+    public long recomponerArbol(String filename, HuffmanInfo arbol) {
+        return 0;
+    }
+
+    @Override
+    public void descomprimirArchivo(HuffmanInfo root, long n, String filename) {
+
+    }
+    
+
+   /* @Override
 	public HuffmanInfo recomponerArbol(String filename){
-       // HuffmanTable arrAux []; /*Esto debe ser de otro tipo de dato, al no poder agregarse elementos como tal a un array*/
+       // HuffmanTable arrAux []; /*Esto debe ser de otro tipo de dato, al no poder agregarse elementos como tal a un array
 
         BitReader bitR= Factory.getBitReader();
         
@@ -55,8 +65,10 @@ public class DescompresorImple implements Descompresor {
             e.printStackTrace(); 
         }
         return root;
-    };
-	@Override
+    }; */
+
+
+	/*@Override
 	public void descomprimirArchivo(HuffmanInfo root,String filename){
         File fOut=new File(filename);
         try {
@@ -86,6 +98,9 @@ public class DescompresorImple implements Descompresor {
         }
 
     };
+   */
+
+
 
 
 }

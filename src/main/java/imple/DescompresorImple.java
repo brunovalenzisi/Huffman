@@ -11,7 +11,28 @@ public class DescompresorImple implements Descompresor {
 
     @Override
     public long recomponerArbol(String filename, HuffmanInfo arbol) {
-        return 0;
+        HuffmanTable arrAux[];
+
+        BitReader bitR = Factory.getBitReader();
+        HuffmanInfo root = new HuffmanInfo();
+        long  bytesFile = new File(filename + ".huf").length();
+
+
+        try  {
+            fIS = new FileInputStream(filename+".huf");
+            bitR.using(fIS);
+
+            int cantHojas=fIS.read();
+
+    
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return bytesFile;
     }
 
     @Override

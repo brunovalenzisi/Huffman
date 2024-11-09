@@ -8,31 +8,56 @@ import java.io.File;
 
 public class DescompresorImple implements Descompresor {
     FileInputStream fIS;
+    HuffmanInfo root=new HuffmanInfo();
 
     @Override
     public long recomponerArbol(String filename, HuffmanInfo arbol) {
-        HuffmanTable arrAux[];
-
-        BitReader bitR = Factory.getBitReader();
-        HuffmanInfo root = new HuffmanInfo();
-        long  bytesFile = new File(filename + ".huf").length();
-
+        BitReader bitR= Factory.getBitReader();
+        HuffmanInfo current;
+        long longitud=0;
 
         try  {
             fIS = new FileInputStream(filename+".huf");
             bitR.using(fIS);
-
             int cantHojas=fIS.read();
-
-    
-
+            longitud++;
+            for (int i=0;i<cantHojas;i++) {
+                int code=fIS.read();
+                int longCod=fIS.read();
+                longitud+=2;
+                longitud+=longCod/3;
+                if(longCod%3!=0){
+                    longitud++;
+                }
+                bitR.flush();
+                current=arbol;
+                for(int bitPos=0;bitPos<longCod;bitPos++){
+                    int bit=bitR.readBit();
+                    if(bit==1){
+                        if(current.getRight()==null){
+                            current.setRight(new HuffmanInfo());
+                            current=current.getRight();
+                        }else{
+                            current=current.getRight();
+                        }
+                    }
+                    else{
+                        if(current.getLeft()==null){
+                            current.setLeft(new HuffmanInfo());
+                            current=current.getLeft();
+                        }
+                        else{
+                            current=current.getLeft();
+                        }
+                    }
+                }
+                current.setC(code);
+            }
+            
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
-
-
-
-        return bytesFile;
+        return longitud;
     }
 
     @Override

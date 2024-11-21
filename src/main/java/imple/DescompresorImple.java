@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.File;
 
 public class DescompresorImple implements Descompresor {
-    FileInputStream fIS;
+    
     HuffmanInfo root=new HuffmanInfo();
 
     @Override
@@ -17,7 +17,7 @@ public class DescompresorImple implements Descompresor {
         long longitud=0;
 
         try  {
-            fIS = new FileInputStream(filename+".huf");
+            FileInputStream fIS = new FileInputStream(filename+".huf");
             bitR.using(fIS);
             int cantHojas=fIS.read();
             longitud++;
@@ -52,6 +52,7 @@ public class DescompresorImple implements Descompresor {
                     }
                 }
                 current.setC(code);
+                fIS.close();
             }
             
         } catch (IOException e) {
@@ -62,66 +63,14 @@ public class DescompresorImple implements Descompresor {
 
     @Override
     public void descomprimirArchivo(HuffmanInfo root, long n, String filename) {
-
-    }
-    
-
-   /* @Override
-	public HuffmanInfo recomponerArbol(String filename){
-       // HuffmanTable arrAux []; /*Esto debe ser de otro tipo de dato, al no poder agregarse elementos como tal a un array
-
-        BitReader bitR= Factory.getBitReader();
-        
-        HuffmanInfo root=new HuffmanInfo(); // acepto que es el primer puntero al arbol
-
-        try  {
-            fIS = new FileInputStream(filename+".huf");
-            bitR.using(fIS);
-            int cantHojas=fIS.read();
-
-            for (int i=0;i<cantHojas;i++) {
-                int code=fIS.read();
-                int longCod=fIS.read();
-                bitR.flush();
-                HuffmanInfo current=root;
-                for(int bitPos=0;bitPos<longCod;bitPos++){
-                    int bit=bitR.readBit();
-                    if(bit==1){
-                        if(current.getRight()==null){
-                            current.setRight(new HuffmanInfo());
-                            current=current.getRight();
-                        }else{
-                            current=current.getRight();
-                        }
-                    }
-                    else{
-                        if(current.getLeft()==null){
-                            current.setLeft(new HuffmanInfo());
-                            current=current.getLeft();
-                        }
-                        else{
-                            current=current.getLeft();
-                        }
-                    }
-                }
-                current.setC(code);
-            }
-            
-        } catch (IOException e) {
-            e.printStackTrace(); 
-        }
-        return root;
-    }; */
-
-
-	/*@Override
-	public void descomprimirArchivo(HuffmanInfo root,String filename){
         File fOut=new File(filename);
         try {
             HuffmanInfo current=root;
             FileOutputStream fOS=new FileOutputStream(fOut);
+            FileInputStream fIS = new FileInputStream(filename+".huf");
             BitReader bitR=Factory.getBitReader();
             bitR.using(fIS);
+            fIS.skip(n);
             int currentBit=bitR.readBit();
             while(currentBit!=-1){
                 if(currentBit==0){
@@ -143,10 +92,5 @@ public class DescompresorImple implements Descompresor {
             e.printStackTrace(); 
         }
 
-    };
-   */
-
-
-
-
+    }
 }

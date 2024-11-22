@@ -52,8 +52,8 @@ public class DescompresorImple implements Descompresor {
                     }
                 }
                 current.setC(code);
-                fIS.close();
             }
+            fIS.close();
             
         } catch (IOException e) {
             e.printStackTrace(); 
@@ -93,4 +93,6 @@ public class DescompresorImple implements Descompresor {
         }
 
     }
+
+
 }

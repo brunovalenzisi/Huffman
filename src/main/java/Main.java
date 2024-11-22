@@ -21,8 +21,9 @@ public class Main {
                 System.out.println("Descomprimiendo");
                 String baseName = filename.substring(0, filename.length() - 4);
                 Descompresor descompresor = Factory.getDescompresor();
-                HuffmanInfo root = descompresor.recomponerArbol(baseName);
-                descompresor.descomprimirArchivo(root, baseName);
+                HuffmanInfo root=new HuffmanInfo();
+                long n = descompresor.recomponerArbol(baseName,root);
+                descompresor.descomprimirArchivo(root,n, baseName);
                 System.out.println("Archivo descomprimido exitosamente como " + baseName);
             } else {
 

@@ -25,8 +25,8 @@ public class DescompresorImple implements Descompresor {
                 int code=fIS.read();
                 int longCod=fIS.read();
                 longitud+=2;
-                longitud+=longCod/3;
-                if(longCod%3!=0){
+                longitud+=longCod/8;
+                if(longCod%8!=0){
                     longitud++;
                 }
                 bitR.flush();

@@ -4,17 +4,22 @@ import huffman.def.HuffmanInfo;
 import huffman.def.HuffmanTable;
 import imple.Factory;
 import java.util.List;
+import huffman.util.Console;
 
 public class Main {
-    public static void main(String[] args) {
-        // Verificación de argumentos de entrada
-        if (args.length != 1) {
-            System.out.println("Uso: java Main <nombre_del_archivo_sin_extension>");
-            return;
-        }
+    public static void main(String [] args) {
+        
+           Console c=Console.get(); 
+          
 
-        String filename = args[0];
+           String filename= c.fileExplorer();
+           c.println(filename);
+           
+           
+           
+           
 
+       /*
         try {
             // Crear instancia de DescompresorImple si el archivo tiene extensión .huf
             if (filename.endsWith(".huf")) {
@@ -41,7 +46,7 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Se ha producido un error durante la compresión o descompresión: " + e.getMessage());
             e.printStackTrace();
-        }
+        }*/
     }
 }
 

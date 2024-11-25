@@ -615,7 +615,7 @@ public class Console
 		JFileChooser jfc = new JFileChooser(dir);
 		int rtdo = jfc.showOpenDialog(frame);
 		
-		return rtdo==JFileChooser.APPROVE_OPTION?jfc.getSelectedFile().getName():null;
+		return rtdo==JFileChooser.APPROVE_OPTION?jfc.getSelectedFile().getAbsolutePath():null;
 	}
 
 	public void closeAndExit()

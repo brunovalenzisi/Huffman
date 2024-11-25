@@ -8,12 +8,11 @@ import java.io.File;
 
 public class DescompresorImple implements Descompresor {
     
-    HuffmanInfo root=new HuffmanInfo();
-
+    
     @Override
     public long recomponerArbol(String filename, HuffmanInfo arbol) {
+        HuffmanInfo current=new HuffmanInfo();
         BitReader bitR= Factory.getBitReader();
-        HuffmanInfo current;
         long longitud=0;
 
         try  {
@@ -69,8 +68,8 @@ public class DescompresorImple implements Descompresor {
             FileOutputStream fOS=new FileOutputStream(fOut);
             FileInputStream fIS = new FileInputStream(filename+".huf");
             BitReader bitR=Factory.getBitReader();
-            bitR.using(fIS);
             fIS.skip(n);
+            bitR.using(fIS);
             int currentBit=bitR.readBit();
             while(currentBit!=-1){
                 if(currentBit==0){

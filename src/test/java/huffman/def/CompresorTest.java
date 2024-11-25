@@ -234,7 +234,7 @@ public class CompresorTest {
 		BitReader bitR = Factory.getBitReader();
 		bitR.using(fis);
 		
-		assertEquals(5, fis.read());
+		assertEquals(5, fis.read()); 
 		
 		assertEquals(65, fis.read());
 		assertEquals(2, fis.read());

@@ -25,6 +25,7 @@ public class Main {
             // Crear instancia de DescompresorImple si el archivo tiene extensión .huf
             if (filename.endsWith(".huf")) {
                 System.out.println("Descomprimiendo");
+                
                 String baseName = filename.substring(0, filename.length() - 4);
                 Descompresor descompresor = Factory.getDescompresor();
                 HuffmanInfo root=new HuffmanInfo();

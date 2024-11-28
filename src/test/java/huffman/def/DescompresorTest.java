@@ -1,5 +1,7 @@
 package huffman.def;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import org.junit.jupiter.api.Test;
@@ -7,7 +9,7 @@ import java.util.List;
 import imple.Factory;
 
 public class DescompresorTest {
-    private static final String FILENAME = "test";
+    private static final String FILENAME = "test1";
     
 
     @Test
@@ -53,14 +55,61 @@ public class DescompresorTest {
         try (FileInputStream fis = new FileInputStream(FILENAME)) {
             Descompresor descompresor = Factory.getDescompresor();
             root=new HuffmanInfo();
+            HuffmanInfo current=new HuffmanInfo();
+
+            ////////////////////////////////comprobar longitud de encabezado//////////////////////////////////////
             long longitudEncabezado=descompresor.recomponerArbol(FILENAME, root);
+
             assertEquals(16,longitudEncabezado);
-           
-      
 
-
-        }
+            ////////////////////////////////comprobar arbol//////////////////////////////////////
             
+            current=root;
+            current=current.getRight();
+            current=current.getRight();
+            assertEquals(67,current.getC());
+            
+            current=root;
+            current=current.getRight();
+            current=current.getLeft();
+            current=current.getRight();
+            assertEquals(68,current.getC());
+            
+            current=root;
+            current=current.getRight();
+            current=current.getLeft();
+            current=current.getLeft();
+            assertEquals(69,current.getC());
+            
+            current=root;
+            current=current.getLeft();
+            current=current.getRight();
+            assertEquals(66,current.getC());
+            
+            current=root;
+            current=current.getLeft();
+            current=current.getLeft();
+            assertEquals(65,current.getC());
+            
+            ////////////////////////////////comprobar archivo comprimido//////////////////////////////////////
+            
+            fis.close();
+            File f=new File(FILENAME);
+            f.delete();
 
+            FileInputStream fisComp=new FileInputStream(FILENAME+".huf");
+            fisComp.skip(longitudEncabezado);
+            assertEquals(0,fisComp.read());
+            assertEquals(87,fisComp.read());
+            assertEquals(236,fisComp.read());
+            assertEquals(-1,fisComp.read());
+            fisComp.close();
+
+            descompresor.descomprimirArchivo(root, longitudEncabezado, FILENAME);
+
+           
+        }
+        
+        
     }
 }

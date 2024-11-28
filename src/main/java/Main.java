@@ -9,7 +9,7 @@ import imple.Factory;
 
 public class Main {
     public static void main(String [] args) {
-        
+            
            Console c=Console.get(); 
           
 
@@ -30,6 +30,7 @@ public class Main {
                 Descompresor descompresor = Factory.getDescompresor();
                 HuffmanInfo root=new HuffmanInfo();
                 long n = descompresor.recomponerArbol(baseName,root);
+                System.out.println("longitud"+ n);
                 descompresor.descomprimirArchivo(root,n, baseName);
                 System.out.println("Archivo descomprimido exitosamente como " + baseName);
             } else {

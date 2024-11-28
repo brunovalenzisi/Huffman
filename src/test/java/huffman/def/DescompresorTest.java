@@ -104,7 +104,6 @@ public class DescompresorTest {
             assertEquals(236,fisComp.read());
             assertEquals(-1,fisComp.read());
             fisComp.close();
-
             descompresor.descomprimirArchivo(root, longitudEncabezado, FILENAME);
 
            

@@ -1,10 +1,13 @@
 package imple;
 
-import huffman.def.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.File;
+
+import huffman.def.BitReader;
+import huffman.def.Descompresor;
+import huffman.def.HuffmanInfo;
 
 public class DescompresorImple implements Descompresor {
     
@@ -60,38 +63,41 @@ public class DescompresorImple implements Descompresor {
         return longitud;
     }
 
-    @Override
-    public void descomprimirArchivo(HuffmanInfo root, long n, String filename) {
-        File fOut=new File(filename);
-        try {
-            HuffmanInfo current=root;
-            FileOutputStream fOS=new FileOutputStream(fOut);
-            FileInputStream fIS = new FileInputStream(filename+".huf");
-            BitReader bitR=Factory.getBitReader();
-            fIS.skip(n);
-            bitR.using(fIS);
-            int currentBit=bitR.readBit();
-            while(currentBit!=-1){
-                if(currentBit==0){
-                    current=current.getLeft();
-                }else{
-                    current=current.getRight();                    
-                }
-                if(current.getLeft()==null&&current.getRight()==null){
-                    fOS.write(current.getC());
-                    current=root;
-                }
-                currentBit=bitR.readBit();
-                
-            }
-            fOS.close();
-            fIS.close();
-            
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+   @Override
+public void descomprimirArchivo(HuffmanInfo root, long n, String filename) {
+    File fOut = new File(filename);
+    try (FileOutputStream fOS = new FileOutputStream(fOut);
+         FileInputStream fIS = new FileInputStream(filename + ".huf")) {
 
+        HuffmanInfo current = root;
+        BitReader bitR = Factory.getBitReader();
+        fIS.skip(n);
+
+        
+
+        bitR.using(fIS);
+        int currentBit = bitR.readBit();
+
+        while (currentBit != -1) {
+            if (currentBit == 0) {
+                current = current.getLeft();
+            } else {
+                current = current.getRight();
+            }
+
+            if (current.getLeft() == null && current.getRight() == null) {
+                System.out.println("Escribiendo carácter: " + current.getC());
+                fOS.write(current.getC());
+                current = root;
+            }
+
+            currentBit = bitR.readBit();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
 
 
 }

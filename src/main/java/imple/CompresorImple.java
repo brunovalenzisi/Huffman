@@ -1,13 +1,16 @@
 package imple;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import huffman.def.*;
+import huffman.def.BitWriter;
+import huffman.def.Compresor;
+import huffman.def.HuffmanInfo;
+import huffman.def.HuffmanTable;
 import huffman.util.HuffmanTree;
 
 public class CompresorImple implements Compresor {
@@ -40,24 +43,24 @@ public HuffmanTable[] contarOcurrencias(String filename) {
 }
 
 // Retorna una lista ordenada donde cada nodo representa a cada byte del archivo
-    @Override
-	public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]){
-        List<HuffmanInfo> lst= new ArrayList<HuffmanInfo>();
-        for(int i=0;i<arr.length;i++){
-            if(arr[i]!=null){
-                HuffmanInfo hI=new HuffmanInfo(i,arr[i].getN());
-                lst.add(hI);
-            }
+   @Override
+public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]) {
+    List<HuffmanInfo> lst = new ArrayList<HuffmanInfo>();
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] != null) {
+            HuffmanInfo hI = new HuffmanInfo(i, arr[i].getN());
+            lst.add(hI);
         }
-        lst.sort((h1, h2) -> {
-            int compareN = Integer.compare(h1.getN(), h2.getN());
-            if (compareN != 0) {
-                return compareN; 
-            }
-            return Integer.compare(h1.getC(), h2.getC());
-        });
-        return lst;
-    };
+    }
+    lst.sort((h1, h2) -> {
+        int compareN = Integer.compare(h1.getN(), h2.getN());  
+        if (compareN != 0) {
+            return compareN;  
+        }
+        return Integer.compare(h1.getC(), h2.getC());  
+    });
+    return lst;
+}
 	
 	
     // Convierte la lista en el árbol Huffman

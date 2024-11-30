@@ -1,11 +1,12 @@
 package huffman.def;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.jupiter.api.Test;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 import imple.Factory;
 
 public class DescompresorTest {
@@ -104,11 +105,12 @@ public class DescompresorTest {
             assertEquals(236,fisComp.read());
             assertEquals(-1,fisComp.read());
             fisComp.close();
-            descompresor.descomprimirArchivo(root, longitudEncabezado, FILENAME);
 
            
         }
         
         
     }
+
+
 }

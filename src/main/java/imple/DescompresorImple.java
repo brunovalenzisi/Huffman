@@ -22,9 +22,11 @@ public class DescompresorImple implements Descompresor {
         try {
             FileInputStream fIS = new FileInputStream(filename + ".huf");
             bitR.using(fIS);
-            
+
             int cantHojas = fIS.read();
-            if(cantHojas==0){cantHojas=256;}
+            if (cantHojas == 0) {
+                cantHojas = 256;
+            }
             longitud++;
             for (int i = 0; i < cantHojas; i++) {
                 int code = fIS.read();
@@ -102,12 +104,6 @@ public class DescompresorImple implements Descompresor {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public int getL() {
-        return longOriginal;
 
     }
 

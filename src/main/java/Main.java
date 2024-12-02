@@ -11,14 +11,13 @@ public class Main {
 
     public static String mostrarMenu(Console c) {
         String rta = "";
-        while (true) { // Repetir hasta obtener una entrada válida
+        while (true) { 
             c.println("Desea comprimir o descomprimir un archivo? (Y/N)");
             rta = c.readString().trim();
 
             if (rta.equalsIgnoreCase("Y")) {
                 return c.fileExplorer();
             } else if (rta.equalsIgnoreCase("N")) {
-                c.println("Gracias por utilizar el compresor Huffman.");
                 c.closeAndExit();
             } else {
                 c.println("Opción no válida. Por favor, ingrese Y o N.");
@@ -61,11 +60,6 @@ public class Main {
         }
 
         c.closeAndExit();
-        
+
     }
 }
-
-
-       
-
-

@@ -3,7 +3,7 @@ package huffman.def;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.List;
+
 
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +20,8 @@ public class BitReaderTest
 	{
 		File f = new File(FILENAME);
 		f.delete();
+		File fComp = new File(FILENAME+".huf");
+		fComp.delete();
 	}
 	
 	@Test

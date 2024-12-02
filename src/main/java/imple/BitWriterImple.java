@@ -1,7 +1,7 @@
 package imple;
 
 import java.io.OutputStream;
-import java.io.IOException; 
+import java.io.IOException;
 import huffman.def.BitWriter;
 
 public class BitWriterImple implements BitWriter {
@@ -11,26 +11,26 @@ public class BitWriterImple implements BitWriter {
 
     @Override
     public void using(OutputStream os) {
-        this.os = os; 
+        this.os = os;
     }
 
     @Override
-    public void writeBit(int bit) throws IOException { 
+    public void writeBit(int bit) throws IOException {
         currentByte = (currentByte << 1) | (bit & 1);
         bitCount++;
         if (bitCount == 8) {
-            flush(); 
+            flush();
         }
     }
 
     @Override
-    public void flush() throws IOException { 
+    public void flush() throws IOException {
         if (bitCount > 0) {
-            currentByte <<= (8 - bitCount); 
-            os.write((byte) currentByte);   
-            bitCount = 0;                    
-            currentByte = 0;                 
+            currentByte <<= (8 - bitCount);
+            os.write((byte) currentByte);
+            bitCount = 0;
+            currentByte = 0;
         }
-        
+
     }
 }

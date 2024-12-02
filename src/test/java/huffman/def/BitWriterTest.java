@@ -20,6 +20,8 @@ public class BitWriterTest
 	{
 		File f = new File(FILENAME);
 		f.delete();
+		File fComp = new File(FILENAME+".huf");
+		fComp.delete();
 	}
 	
 	@Test

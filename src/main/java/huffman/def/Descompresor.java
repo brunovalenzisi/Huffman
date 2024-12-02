@@ -10,4 +10,6 @@ public interface Descompresor
 	// Recorre bit por bit el archivo filename+".huf", decodifica y escribe 
 	// cada byte decodificado en el arhivo filename
 	public void descomprimirArchivo(HuffmanInfo root, long n,String filename);
+
+	public int getL();
 }

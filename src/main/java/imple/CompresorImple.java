@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import huffman.def.HuffmanTable;
 import huffman.util.HuffmanTree;
 
 public class CompresorImple implements Compresor {
-    FileOutputStream fOS;
+   
     @Override   
 public HuffmanTable[] contarOcurrencias(String filename) {
     HuffmanTable[] arr = new HuffmanTable[256];
@@ -110,16 +111,20 @@ public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]) {
 	public long escribirEncabezado(String filename,HuffmanTable arr[]){
         File f=new File(filename+".huf");
         try  {
-            if(fOS==null){
-                fOS= new FileOutputStream(f);
-            }
             
+              FileOutputStream  fOS= new FileOutputStream(f);
+           
+            int longitudOriginal=0;
             int arrLength = 0;
             for(int i=0;i<arr.length;i++){if(arr[i]!=null){
+                longitudOriginal+=arr[i].getN();
                 arrLength++;}}
             BitWriter ppbWriter = Factory.getBitWriter();
             ppbWriter.using(fOS);
-             fOS.write(arrLength);
+            
+            if(arrLength==256){
+                fOS.write(0);
+            } else{fOS.write(arrLength); }
              for(int i=0;i<arr.length;i++){
                 if(arr[i]!=null){
                     int longC=arr[i].getCod().length();
@@ -132,7 +137,11 @@ public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]) {
                     }
                     ppbWriter.flush();                
                 }
+                
             }
+            byte[] bytes = ByteBuffer.allocate(4).putInt(longitudOriginal).array();
+             fOS.write(bytes);
+             fOS.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,9 +156,8 @@ public List<HuffmanInfo> crearListaEnlazada(HuffmanTable arr[]) {
         File f =new File(filename+".huf");
         try{
             FileInputStream fIS=new FileInputStream(filename);
-            if(fOS==null){
-                fOS= new FileOutputStream(f);
-            }
+            FileOutputStream fOS= new FileOutputStream(f,true);
+         
             BitWriter ppbWriter = Factory.getBitWriter();
             ppbWriter.using(fOS);
             int newByte=fIS.read();

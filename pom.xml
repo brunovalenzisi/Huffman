@@ -4,16 +4,25 @@
 <artifactId>HuffmanTP_v1.0.1</artifactId>
 <version>0.0.1-SNAPSHOT</version>
 <build>
-<plugins>
-<plugin>
-<artifactId>maven-compiler-plugin</artifactId>
-<version>3.8.1</version>
-<configuration>
-<release>17</release>
-</configuration>
-</plugin>
-</plugins>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.1.0</version> <!-- Asegúrate de usar la última versión -->
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>com.example.Main</mainClass> <!-- Usa la ruta completa de tu clase Main -->
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
 </build>
+
 <dependencies>
 <dependency>
 <groupId>org.junit.jupiter</groupId>

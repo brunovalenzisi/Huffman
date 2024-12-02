@@ -1,2 +1,4 @@
 huffman\def\BitReaderTest.class
+huffman\def\CompresorTest.class
+huffman\def\DescompresorTest.class
 huffman\def\BitWriterTest.class
